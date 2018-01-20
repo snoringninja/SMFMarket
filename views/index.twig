@@ -1,0 +1,94 @@
+<!doctype HTML>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">SMF Market</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Signup <i class="fa fa-user-plus"></i></a></li>
+                    <li><a href="#">Login <i class="fa fa-user"></i></a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    {% if name is empty %}
+        {% set name = "test" %}
+    {% endif %}
+
+    <div class="container">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Offer Type</th>
+                    <th>Item</th>
+                    <th>Amount</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in market_items %}
+                    <tr>
+                        <td>{{ entry.forum_username }}</td>
+                        <td>{{ entry.offer_type }}</td>
+                        <td>{{ entry.item }}</td>
+                        <td>{{ entry.amount }}</td>
+                        <td>{{ entry.price }}</td>
+                        <td>{{ entry.post_date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <!--<script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+    <script src="javascript/validate.js"></script>
+    <script src="javascript/autocomplete.js"></script> -->
+    <noscript>
+        <style type="text/css">
+            wrapper {display: none;}
+            .nsText {text-align: center;}
+        </style>
+        <div class="nsText">
+            Please enable JS to use the market.
+        </div>
+    </noscript>
+</body>
+</html>

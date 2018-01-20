@@ -1,0 +1,4 @@
+/vendor/**/.git
+/vendor/*
+/cache/*
+/.idea/*
