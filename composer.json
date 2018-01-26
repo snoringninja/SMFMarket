@@ -1,9 +1,5 @@
 {
     "require": {
-        "twig/twig": "~2.0",
-        "phpunit/phpunit": "^6.5"
-    },
-    "require-dev": {
-        "phpunit/dbunit": "^3.0"
+        "twig/twig": "~2.0"
     }
 }
