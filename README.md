@@ -16,8 +16,7 @@ Requirements
 
 Important
 ------
-This is not currently in a usable state, so please do not try to make use of it.  The required database tables are not currently provided, but  
-in the future will be included through a database creation portion.
+This is not currently in a usable state, so please do not try to make use of it.  The required database tables are not currently provided, but in the future will be included through a database creation portion.
 
 Copyright
 ------
