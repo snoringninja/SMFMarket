@@ -5,7 +5,7 @@
  * Date: 1/20/2018
  * Time: 12:46 AM.
  */
-require __DIR__.'\..\backend\config.php';
+require __DIR__.'/../backend/config.php';
 
 class database
 {
