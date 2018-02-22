@@ -15,8 +15,8 @@ $twig = new Twig_Environment($loader, [
 
 try {
     echo $twig->render('index.twig', [
-        'name' => '',
-        'title' => 'SMF Market',
+        'name'         => '',
+        'title'        => 'SMF Market',
         'market_items' => Database::displayCurrentEntries(),
     ]);
 } catch (Twig_Error_Loader $e) {
