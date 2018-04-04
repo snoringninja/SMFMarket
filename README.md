@@ -1,13 +1,14 @@
 SMFMarket
 ======
 Basic market place page hooked into SMF using their SSI.  
-This is a fork of [this](https://github.com/xNifty/SMF-Market) that is being redone to focus on cleaner, more efficient code,  
-better design with an emphasis on responsiveness, and overall better quality.
+This is a fork of [this](https://github.com/xNifty/SMF-Market) that is being redone to focus on cleaner, more efficient code, better design with an emphasis on responsiveness, and overall better quality.
 
 About
 ------ 
 Simple, market style page that is hooked into the Simple Machines Forum Software to make use of their SSI (essentially an API).  
-This will use user roles to determine who can and cannot perform different actions.
+This will use user roles to determine who can and cannot perform different actions.  
+  
+At this time, this project is on hold.
 
 Requirements
 ------
