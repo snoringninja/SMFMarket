@@ -15,13 +15,14 @@ class database
          */
         try {
             global $DBServer, $DBName, $DBUser, $DBPass, $page_start, $page_limit;
-            $conn = new PDO('mysql:host=' . $DBServer . '; dbname=' . $DBName, $DBUser, $DBPass);
+            $conn = new PDO('mysql:host='.$DBServer.'; dbname='.$DBName, $DBUser, $DBPass);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         } catch (PDOException $ex) {
             $conn = null;
         }
-            return $conn;
+
+        return $conn;
     }
 
     private static function closeConnection(&$conn)
