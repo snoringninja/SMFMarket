@@ -9,7 +9,7 @@ require __DIR__.'/functions/database.php';
 $loader = new Twig_Loader_Filesystem(__DIR__.'/views');
 $twig = new Twig_Environment($loader, [
     'cache' => __DIR__.'/cache',
-    //'cache' => false,
+    'cache' => false,
 ]);
 
 try {

@@ -35,6 +35,8 @@ class database
      */
     public static function displayCurrentEntries()
     {
+        // I wonder if we should just do one single try..catch around where we set $conn; just return right away if the
+        // connection isn't valid
         global $page_start, $page_limit;
         $conn = self::connectToDatabase();
         $data_array = [];
@@ -51,15 +53,19 @@ class database
         }
 
         if ($conn) {
-            $sql = $conn->prepare("SELECT `id`, `offer_type`, `forum_username`, `item`, `amount`, `price`,
-                                            `post_date` FROM `entries` ORDER BY `ID` DESC LIMIT $page_start, $page_limit");
-            $sql->execute();
-            while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-                array_push($data_array, $row);
-            }
+            try {
+                $sql = $conn->prepare("SELECT `id`, `offer_type`, `forum_username`, `item`, `amount`, `price`,
+                                                `post_date` FROM `sales` ORDER BY `ID` DESC LIMIT $page_start, $page_limit");
+                $sql->execute();
+                while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+                    array_push($data_array, $row);
+                }
 
-            // Close the connection
-            self::closeConnection($conn);
+                // Close the connection
+                self::closeConnection($conn);
+            } catch (PDOException $ex) {
+                $data_array = [];
+            }
         } else {
             $data_array = [];
         }
@@ -75,12 +81,16 @@ class database
         $conn = self::connectToDatabase();
 
         if ($conn) {
-            $sql = $conn->prepare('SELECT * FROM `entries`');
-            $sql->execute();
-            $count = $sql->rowCount();
+            try {
+                $sql = $conn->prepare('SELECT * FROM `sales`');
+                $sql->execute();
+                $count = $sql->rowCount();
 
-            // Close the connection
-            self::closeConnection($conn);
+                // Close the connection
+                self::closeConnection($conn);
+            } catch (PDOException $ex) {
+                $count = 0;
+            }
         } else {
             $count = 0;
         }
