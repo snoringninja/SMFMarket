@@ -1,6 +1,6 @@
 <?php
 /**
-* @author SnoringNinja
+ * @author SnoringNinja
  * @site https://snoring.ninja
  */
 require __DIR__.'/vendor/autoload.php';
