@@ -39,48 +39,50 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    {% if name is empty %}
-        {% set name = "test" %}
-    {% endif %}
-
     <div class="container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Offer Type</th>
-                    <th>Item</th>
-                    <th>Amount</th>
-                    <th>Price</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in market_items %}
+        {% if market_items|length > 0 %}
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ entry.forum_username }}</td>
-                        <td>{{ entry.offer_type }}</td>
-                        <td>{{ entry.item }}</td>
-                        <td>{{ entry.amount }}</td>
-                        <td>{{ entry.price }}</td>
-                        <td>{{ entry.post_date|date("F j, Y / g:i a") }}</td>
+                        <th>Username</th>
+                        <th>Offer Type</th>
+                        <th>Item</th>
+                        <th>Amount</th>
+                        <th>Price</th>
+                        <th>Date</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for entry in market_items %}
+                        <tr>
+                            <td>{{ entry.forum_username }}</td>
+                            <td>{{ entry.offer_type }}</td>
+                            <td>{{ entry.item }}</td>
+                            <td>{{ entry.amount }}</td>
+                            <td>{{ entry.price }}</td>
+                            <td>{{ entry.post_date|date("F j, Y / g:i a") }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            There are no offers available at this time
+        {% endif %}
     </div>
 
-
-    <!--<script
-            src="https://code.jquery.com/jquery-3.2.1.min.js"
+    <script
+            src="//code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous">
     </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
     </script>
+
+    <!--
     <script src="javascript/validate.js"></script>
-    <script src="javascript/autocomplete.js"></script> -->
+    <script src="javascript/autocomplete.js"></script>
+    -->
     <noscript>
         <style type="text/css">
             wrapper {display: none;}

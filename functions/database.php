@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Ryan
- * Date: 1/20/2018
- * Time: 12:46 AM.
+ * @author SnoringNinja
+ * @site https://snoring.ninja
  */
 require __DIR__.'/../backend/config.php';
 
@@ -11,12 +9,19 @@ class database
 {
     private static function connectToDatabase()
     {
-        global $DBServer, $DBName, $DBUser, $DBPass, $page_start, $page_limit;
-        $conn = new PDO('mysql:host='.$DBServer.'; dbname='.$DBName, $DBUser, $DBPass);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-
-        return $conn;
+        /*
+         * @TODO: We should display on the homepage if the database wasn't accessible, only if the user has Admin rights
+         *        within the SMF forum permissions system
+         */
+        try {
+            global $DBServer, $DBName, $DBUser, $DBPass, $page_start, $page_limit;
+            $conn = new PDO('mysql:host=' . $DBServer . '; dbname=' . $DBName, $DBUser, $DBPass);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        } catch (PDOException $ex) {
+            $conn = null;
+        }
+            return $conn;
     }
 
     private static function closeConnection(&$conn)
@@ -36,6 +41,7 @@ class database
         /*
          * If there aren't more entries than $page_limit, set $page_limit to the count
          * and set $page_start to 0
+         *
          */
         $count = self::getTotalRows();
         if ($count < $page_limit) {
@@ -43,13 +49,19 @@ class database
             $page_start = 0;
         }
 
-        $sql = $conn->prepare("SELECT `id`, `offer_type`, `forum_username`, `item`, `amount`, `price`,
-                                        `post_date` FROM `entries` ORDER BY `ID` DESC LIMIT $page_start, $page_limit");
-        $sql->execute();
-        while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-            array_push($data_array, $row);
+        if ($conn) {
+            $sql = $conn->prepare("SELECT `id`, `offer_type`, `forum_username`, `item`, `amount`, `price`,
+                                            `post_date` FROM `entries` ORDER BY `ID` DESC LIMIT $page_start, $page_limit");
+            $sql->execute();
+            while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data_array, $row);
+            }
+
+            // Close the connection
+            self::closeConnection($conn);
+        } else {
+            $data_array = [];
         }
-        self::closeConnection($conn);
 
         return $data_array;
     }
@@ -61,12 +73,16 @@ class database
     {
         $conn = self::connectToDatabase();
 
-        $sql = $conn->prepare('SELECT * FROM `entries`');
-        $sql->execute();
-        $count = $sql->rowCount();
+        if ($conn) {
+            $sql = $conn->prepare('SELECT * FROM `entries`');
+            $sql->execute();
+            $count = $sql->rowCount();
 
-        // Close the connection
-        self::closeConnection($conn);
+            // Close the connection
+            self::closeConnection($conn);
+        } else {
+            $count = 0;
+        }
 
         return $count;
     }
