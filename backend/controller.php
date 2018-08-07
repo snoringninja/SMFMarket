@@ -1,4 +1,5 @@
 <?php
+
 require __DIR__.'/../vendor/autoload.php';
 
 require_once PROJECT_ROOT.'/../'.$forum_root.'/SSI.php';
@@ -15,7 +16,7 @@ $ssi_logout_function = new Twig_SimpleFunction('ssi_logout_custom', function () 
     ssi_logout($redirect_to = $return_link);
 });
 
-$ssi_login_function = new Twig_SimpleFunction('ssi_login_custom', function() {
+$ssi_login_function = new Twig_SimpleFunction('ssi_login_custom', function () {
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
     $return_link = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     ssi_login($redirect_to = $return_link);
